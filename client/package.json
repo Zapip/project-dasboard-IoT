@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "apexcharts": "^3.54.0",
+    "lodash": "^4.17.21",
     "preline": "^2.5.0",
     "vue": "^3.4.37"
   },
