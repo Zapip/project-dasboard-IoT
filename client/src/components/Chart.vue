@@ -11,7 +11,6 @@
 
 <script>
 window.addEventListener('load', () => {
-    // Apex Single Area Chart
     (function () {
         buildChart('#water-level-chart', (mode) => ({
             chart: {

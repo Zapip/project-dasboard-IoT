@@ -1,5 +1,3 @@
-import Pump from "./src/components/pump.vue";
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -16,6 +14,7 @@ export default {
         secondary: "#363636",
         ongreen: "#09AD91",
         offred: "#F55454",
+        water: "#5c5cff",
       },
       textColor: { white: "#F8F8FC", black: "#050505" },
       fontFamily: {

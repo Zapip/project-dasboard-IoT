@@ -4,8 +4,9 @@ import Sidebar from "./components//partials/Sidebar.vue";
 import Navbar from "./components//partials/Navbar.vue";
 import Chart from "./components/Chart.vue"
 import pump from "./components/pump.vue";
-
 import { type IStaticMethods } from "preline/preline";
+import Schema from "./components/Schema.vue";
+
 declare global {
   interface Window {
     HSStaticMethods: IStaticMethods;
@@ -17,14 +18,13 @@ onMounted(() => {
     window.HSStaticMethods.autoInit();
   }, 100);
 });
+
 </script>
 
 <template>
   <header class="bg-card w-full h-16 shadow border-b-4 border-main sticky z-10">
     <Navbar />
-    <!-- <Navbar /> -->
-    <!-- <Sidebar /> -->
-    <!-- <Sidebar /> -->
+    <Sidebar />
   </header>
   <main class="p-12 py-6">
     <article class="w-full grid grid-cols-4 gap-6">
@@ -32,8 +32,8 @@ onMounted(() => {
         <h1 class="text-xl font-medium">Grafik Pembacaan Level Air</h1>
         <Chart />
       </section>
-      <section class="bg-card w-full col-span-2 rounded-xl p-4 drop-shadow-2xl">
-
+      <section class="bg-card w-[615px] col-span-2 rounded-xl p-4 drop-shadow-2xl relative">
+        <Schema />
       </section>
       <section class="bg-card w-full border border-main col-span-3 rounded-xl p-6 drop-shadow-2xl">
         <h1 class="text-xl font-medium">Sistem Pengendali Pompa</h1>

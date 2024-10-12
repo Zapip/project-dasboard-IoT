@@ -4,7 +4,7 @@
         <section class="flex w-full justify-between">
             <img class="bg-cover" :class="{ 'animate-pump': statusPump }" src="/src/assets/img/Pump.png" alt="Pompa">
             <section class="flex flex-col justify-end items-center">
-                <button @click="tooglePump"
+                <button @click="tooglePump(id)"
                     class=" text-white p-1 rounded-lg w-full flex gap-2 transition-all duration-300 ease-in-out"
                     :class="{ 'bg-ongreen flex-row-reverse': statusPump, 'bg-secondary': !statusPump }">
                     <div class="bg-white size-6 rounded-md p-1"></div>
@@ -19,7 +19,7 @@
 export default {
     name: "Pump",
     props: {
-        id: Number,
+        id: String,
         content: {
             type: Object,
             required: true,
@@ -34,16 +34,18 @@ export default {
         }
     },
     methods: {
-        tooglePump() {
+        tooglePump(id) {
             // Change the status of the pump use boolean
             this.statusPump = !this.statusPump;
-        }
+            this.$emit('toogle-pump', id, this.statusPump);
+            console.log(id, this.statusPump);
+        },
     }
 
 };
 </script>
 
-<style scoped>
+<style>
 @keyframes pumpScale {
     0% {
         transform: scaleY(1);
