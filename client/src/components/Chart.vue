@@ -11,79 +11,48 @@
 
 <script>
 window.addEventListener('load', () => {
-    (function () {
-        buildChart('#water-level-chart', (mode) => ({
+    const chartElement = document.querySelector("#water-level-chart");
+    let currentSecond = 15; // Mulai dari detik 15
+    const intervalSeconds = 15; // Update setiap 15 detik
+    const maxVisiblePoints = 6; // Selalu tampilkan 6 series pada x-axis
+    let chart;
+
+    function initializeChart() {
+        chart = new ApexCharts(chartElement, {
             chart: {
                 height: 300,
                 type: 'area',
                 toolbar: {
                     show: false
                 },
+                animations: {
+                    enabled: true,
+                    easing: 'linear',
+                    dynamicAnimation: {
+                        speed: 1000 // 1 second animation for real-time effect
+                    }
+                },
                 zoom: {
                     enabled: false
-                }
+                },
             },
             series: [
                 {
-                    name: 'Visitors',
-                    data: [0, 51, 60, 38, 40, 50, 40, 52, 65, 69, 60, 69]
+                    name: 'Level',
+                    data: Array.from({ length: maxVisiblePoints }, () => 0), // Initialize with 6 zeros
                 }
             ],
-            legend: {
-                show: false
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth',
-                width: 3
-            },
-            grid: {
-                strokeDashArray: 2
-            },
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    type: 'vertical',
-                    shadeIntensity: 1,
-                    opacityFrom: 0.1,
-                    opacityTo: 0.8
-                }
-            },
             xaxis: {
                 type: 'category',
                 tickPlacement: 'on',
-                categories: [
-                    '25 January 2023',
-                    '26 January 2023',
-                    '27 January 2023',
-                    '28 January 2023',
-                    '29 January 2023',
-                    '30 January 2023',
-                    '31 January 2023',
-                    '1 February 2023',
-                    '2 February 2023',
-                    '3 February 2023',
-                    '4 February 2023',
-                    '5 February 2023'
-                ],
+                categories: Array.from({ length: maxVisiblePoints }, (_, i) => i < 5 ? '' : (i - 4) * intervalSeconds), // Labels 15, 30, 45, ...
                 axisBorder: {
                     show: false
                 },
                 axisTicks: {
-                    show: false
-                },
-                crosshairs: {
-                    stroke: {
-                        dashArray: 0
-                    },
-                    dropShadow: {
-                        show: false
-                    }
-                },
-                tooltip: {
-                    enabled: false
+                    show: true,
+                    borderType: 'solid',
+                    color: '#9ca3af',
                 },
                 labels: {
                     style: {
@@ -91,16 +60,6 @@ window.addEventListener('load', () => {
                         fontSize: '13px',
                         fontFamily: 'Fredoka, ui-sans-serif',
                         fontWeight: 400
-                    },
-                    formatter: (title) => {
-                        let t = title;
-
-                        if (t) {
-                            const newT = t.split(' ');
-                            t = `${newT[0]} ${newT[1].slice(0, 3)}`;
-                        }
-
-                        return t;
                     }
                 }
             },
@@ -108,125 +67,116 @@ window.addEventListener('load', () => {
                 max: 70,
                 labels: {
                     align: 'left',
-                    minWidth: 0,
-                    maxWidth: 140,
                     style: {
                         colors: '#9ca3af',
                         fontSize: '13px',
                         fontFamily: 'Fredoka, ui-sans-serif',
                         fontWeight: 400
                     },
-                    formatter: (value) => value >= 1000 ? `${value / 1000}k` : value
-                }
+                    formatter: (value) => value
+                },
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 4,
+                colors: ['#9487E8']
+            },
+            grid: {
+                strokeDashArray: 2
+            },
+            fill: {
+                type: 'gradient',
+                colors: ['#9487E8'],
             },
             tooltip: {
                 x: {
-                    format: 'MMMM yyyy'
-                },
-                y: {
-                    formatter: (value) => `${value >= 1000 ? `${value / 1000}k` : value}`
-                },
-                custom: function (props) {
-                    const { categories } = props.ctx.opts.xaxis;
-                    const { dataPointIndex } = props;
-                    const title = categories[dataPointIndex].split(' ');
-                    const newTitle = `${title[0]} ${title[1]}`;
-
-                    return buildTooltip(props, {
-                        title: newTitle,
-                        mode,
-                        valuePrefix: '',
-                        hasTextLabel: true,
-                        markerExtClasses: '!rounded-sm',
-                        wrapperExtClasses: 'min-w-28'
-                    });
+                    // formatter: function (value, { w }) {
+                    //     const index = w.globals.seriesX[0][value];
+                    //     return `Detik ${value * 15}`;
+                    // }
+                    format: 'ss',
                 }
-            },
-            responsive: [{
-                breakpoint: 568,
-                options: {
-                    chart: {
-                        height: 300
-                    },
-                    labels: {
-                        style: {
-                            colors: '#9ca3af',
-                            fontSize: '11px',
-                            fontFamily: 'Fredoka, ui-sans-serif',
-                            fontWeight: 400
-                        },
-                        offsetX: -2,
-                        formatter: (title) => title.slice(0, 3)
-                    },
-                    yaxis: {
-                        labels: {
-                            align: 'left',
-                            minWidth: 0,
-                            maxWidth: 140,
-                            style: {
-                                colors: '#9ca3af',
-                                fontSize: '11px',
-                                fontFamily: 'Fredoka, ui-sans-serif',
-                                fontWeight: 400
-                            },
-                            formatter: (value) => value >= 1000 ? `${value / 1000}k` : value
-                        }
-                    },
-                },
-            }]
-        }), {
-            colors: ['#2563eb', '#9333ea'],
-            fill: {
-                gradient: {
-                    stops: [0, 90, 100]
-                }
-            },
-            xaxis: {
-                labels: {
-                    style: {
-                        colors: '#9ca3af'
-                    }
-                }
-            },
-            yaxis: {
-                labels: {
-                    style: {
-                        colors: '#9ca3af'
-                    }
-                }
-            },
-            grid: {
-                borderColor: '#e5e7eb'
-            }
-        }, {
-            colors: ['#3b82f6', '#a855f7'],
-            fill: {
-                gradient: {
-                    stops: [100, 90, 0]
-                }
-            },
-            xaxis: {
-                labels: {
-                    style: {
-                        colors: '#a3a3a3',
-                    }
-                }
-            },
-            yaxis: {
-                labels: {
-                    style: {
-                        colors: '#a3a3a3'
-                    }
-                }
-            },
-            grid: {
-                borderColor: '#404040'
             }
         });
-    })();
+
+        chart.render();
+    }
+
+    function updateChartData() {
+        setInterval(() => {
+            // Membuat angka random 0-70 untuk data baru
+            const newDataPoint = Math.floor(Math.random() * 70);
+
+            // Ambil data series dan x-axis
+            const seriesData = chart.w.config.series[0].data;
+            let categories = chart.w.config.xaxis.categories;
+
+            // Tambahkan data baru
+            seriesData.push(newDataPoint);
+
+            // Jika sudah lebih dari 6 data point, hapus yang lama
+            if (seriesData.length > maxVisiblePoints) {
+                seriesData.shift();
+            }
+
+            // Update kategori x-axis
+            categories = Array.from({ length: maxVisiblePoints }, (_, i) => {
+                // Untuk index 0-4, gunakan nilai kosong pada siklus pertama
+                if (i < 5 && currentSecond === 15) {
+                    return '';
+                }
+                else {
+                    if (currentSecond === 30) {
+                        if (i >= 0 && i <= 3) {
+                            return '';
+                        }
+                    }
+                    if (currentSecond === 45) {
+                        if (i >= 0 && i <= 2) {
+                            return '';
+                        }
+                    }
+                    if (currentSecond === 60) {
+                        if (i >= 0 && i <= 1) {
+                            return '';
+                        }
+                    }
+                    if (currentSecond === 75 && i === 0) {
+                        return '';
+                    }
+                    return currentSecond + (i - 5) * intervalSeconds;
+                }
+            });
+
+            // Update chart options untuk x-axis dan data
+            chart.updateOptions({
+                xaxis: {
+                    categories: categories.map(cat => cat === '' ? '' : `${cat}`) // Update the categories, tampilkan dengan satuan detik
+                }
+            });
+
+            chart.updateSeries([{
+                data: seriesData // Update the series with new data
+            }]);
+
+            // Tambah current second dengan kelipatan 15
+            currentSecond += intervalSeconds;
+
+        }, intervalSeconds * 1000); // Update setiap 15 detik (15,000 ms)
+    }
+
+
+
+    initializeChart(); // Initialize the chart
+    updateChartData(); // Start updating the chart with real-time data
 });
+
+
+
+
 
 export default {
     name: "Chart",
+
 };
 </script>

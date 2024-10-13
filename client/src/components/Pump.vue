@@ -19,7 +19,7 @@
 export default {
     name: "Pump",
     props: {
-        id: String,
+        id: Number,
         content: {
             type: Object,
             required: true,
@@ -30,16 +30,34 @@ export default {
     },
     data() {
         return {
-            statusPump: false
+            statusPump: false,
         }
     },
     methods: {
-        tooglePump(id) {
-            // Change the status of the pump use boolean
+        async tooglePump(id) {
+            // Toggle lokal
             this.statusPump = !this.statusPump;
+
+            // // kirim perubahan status tombol ke server
+            // try {
+            //     const response = await fetch(`https://670a77ddac6860a6c2c99956.mockapi.io/pump-indicator-status/pump-button/${id}`, {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify({ status: this.statusPump })
+            //     });
+
+            //     const result = await response.json();
+            //     console.log(result.message); // Log success message from server
+            // } catch (error) {
+            //     console.error('Error updating pump status:', error);
+            // }
+
+            // Emit event to parent component if needed
             this.$emit('toogle-pump', id, this.statusPump);
-            console.log(id, this.statusPump);
-        },
+            console.log(`Pump ${id} is ${this.statusPump ? 'ON' : 'OFF'}`);
+        }
     }
 
 };
@@ -52,7 +70,7 @@ export default {
     }
 
     50% {
-        transform: scaleY(0.9);
+        transform: scaleY(0.8);
     }
 
     100% {
