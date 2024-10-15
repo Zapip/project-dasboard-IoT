@@ -1,12 +1,14 @@
 <template>
-    <!-- Flow Arrow -->
+    <!-- Indicator In -->
     <TankIndicator id="TK-001" :content="{ title: 'TK-001' }" class="left-0 top-0" />
     <TankIndicator id="TK-002" :content="{ title: 'TK-002' }" class="right-0 top-16" />
     <PumpIndicator :id="1" :content="{ title: 'P-001' }" class="-top-4 inset-x-60" />
     <PumpIndicator :id="2" :content="{ title: 'P-002' }" class="top-28 inset-x-60" />
     <PumpIndicator :id="3" :content="{ title: 'P-003' }" class="bottom-3 inset-x-60" />
     <PumpIndicator :id="4" :content="{ title: 'P-004' }" class="bottom-14 left-8 inset-x-60" />
+    <!-- Indicator Out -->
 
+    <!-- Flow Water In -->
     <div class="w-[3%] h-[80%] bg-water absolute bottom-8 left-24 rounded-l-xl flex items-center py-4">
         <span class="h-full running-animationY inversey transform">
             <svg class="transform -rotate-90" width="18" height="8" viewBox="0 0 25 16" fill="none"
@@ -17,7 +19,7 @@
             </svg>
         </span>
     </div>
-    <div class="w-[3%] h-[65%] bg-water absolute right-24 top-28 rounded-r-xl flex items-center py-4">
+    <div class="w-[3%] h-[65%] bg-water absolute right-20 top-28 rounded-r-xl flex items-center py-4">
         <span class="h-full running-animationY">
             <svg class="transform rotate-90" width="18" height="8" viewBox="0 0 25 16" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +54,7 @@
         </span>
     </div>
     <!-- Pipa Bawah -->
-    <div class="w-[69%] h-[5%] bg-water absolute bottom-8 left-24 rounded-b-xl flex items-center px-4">
+    <div class="w-[71%] h-[5%] bg-water absolute bottom-8 left-24 rounded-b-xl flex items-center px-4">
         <span class="w-full running-animationX">
             <svg class="transform rotate-180" width="18" height="8" viewBox="0 0 25 16" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -89,6 +91,7 @@
             </svg>
         </span>
     </div>
+    <!-- Flow Water In -->
 
 </template>
 <script>

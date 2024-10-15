@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
-import Sidebar from "./components//partials/Sidebar.vue";
 import Navbar from "./components//partials/Navbar.vue";
 import Chart from "./components/Chart.vue"
-import pump from "./components/pump.vue";
+import pump from "./components/Pump.vue";
 import { type IStaticMethods } from "preline/preline";
 import Schema from "./components/Schema.vue";
 
@@ -22,11 +21,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <header class="bg-card w-full h-16 shadow border-b-4 border-main sticky z-10">
+  <header class="bg-card w-full h-16 shadow border-b-4 border-main fixed z-10">
     <Navbar />
-    <Sidebar />
   </header>
-  <main class="p-12 py-6 overflow-x-hidden">
+  <main class="p-12 py-6 overflow-x-hidden pt-20">
     <article class="w-full grid grid-cols-4 gap-6">
       <section class="col-span-4 flex gap-4">
         <section class="bg-card w-full h-full rounded-xl p-4 drop-shadow-2xl grid gap-6">
@@ -42,7 +40,7 @@ onMounted(() => {
         <article class="w-full rounded-xl py-4 grid grid-cols-3 gap-4">
           <pump :id="1" :content="{ title: 'P-001' }" />
           <pump :id="2" :content="{ title: 'P-002' }" />
-          <pump :id="2" :content="{ title: 'P-003' }" />
+          <pump :id="3" :content="{ title: 'P-003' }" />
         </article>
       </section>
       <section class="bg-card w-full border border-main col-span-1 rounded-xl p-6 drop-shadow-2xl">

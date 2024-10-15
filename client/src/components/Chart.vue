@@ -90,10 +90,6 @@ window.addEventListener('load', () => {
             },
             tooltip: {
                 x: {
-                    // formatter: function (value, { w }) {
-                    //     const index = w.globals.seriesX[0][value];
-                    //     return `Detik ${value * 15}`;
-                    // }
                     format: 'ss',
                 }
             }
@@ -101,11 +97,22 @@ window.addEventListener('load', () => {
 
         chart.render();
     }
+    async function fetchNewDataPoint() {
+        try {
+            const response = await fetch('URL_API_BACKEND'); // Ganti dengan URL API backend
+            const data = await response.json();
+            return data.newDataPoint;
+        } catch (error) {
+            console.error('Error fetching new data point:', error);
+        } finally {
+            return Math.floor(Math.random() * 70); // Mengembalikan nilai random 1-70 ketika gagal fetch
+        }
+    }
 
     function updateChartData() {
-        setInterval(() => {
+        setInterval(async () => {
             // Membuat angka random 0-70 untuk data baru
-            const newDataPoint = Math.floor(Math.random() * 70);
+            const newDataPoint = await fetchNewDataPoint();
 
             // Ambil data series dan x-axis
             const seriesData = chart.w.config.series[0].data;

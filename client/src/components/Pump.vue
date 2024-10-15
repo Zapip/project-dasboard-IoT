@@ -38,25 +38,25 @@ export default {
             // Toggle lokal
             this.statusPump = !this.statusPump;
 
-            // // kirim perubahan status tombol ke server
-            // try {
-            //     const response = await fetch(`https://670a77ddac6860a6c2c99956.mockapi.io/pump-indicator-status/pump-button/${id}`, {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify({ status: this.statusPump })
-            //     });
+            // kirim perubahan status tombol ke server
+            try {
+                const response = await fetch(`https://670a77ddac6860a6c2c99956.mockapi.io/pump-indicator-status/pump-button/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status: this.statusPump })
+                });
 
-            //     const result = await response.json();
-            //     console.log(result.message); // Log success message from server
-            // } catch (error) {
-            //     console.error('Error updating pump status:', error);
-            // }
+                const result = await response.json();
+                console.log(result.message); //Menampilkan pesan dari server di console browser
+            } catch (error) {
+                console.error('Error updating pump status:', error);
+            }
 
             // Emit event to parent component if needed
             this.$emit('toogle-pump', id, this.statusPump);
-            console.log(`Pump ${id} is ${this.statusPump ? 'ON' : 'OFF'}`);
+            console.log(`Pump ${id} is ${this.statusPump ? 'ON' : 'OFF'}`); // menampilkan status pompa di console browser
         }
     }
 

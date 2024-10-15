@@ -22,13 +22,14 @@ export default {
             required: true,
             properties: {
                 title: String,
+
             }
         }
     },
     data() {
         return {
-            pumpStatus: 'off', // Default status
-            apiUrl: 'https://670a77ddac6860a6c2c99956.mockapi.io/pump-indicator-status/pumpstatus', // Ganti dengan API
+            pumpStatus: 'off', // Status Awal
+            apiUrl: 'https://670a77ddac6860a6c2c99956.mockapi.io/pump-indicator-status/pumpstatus', // Ganti dengan API yang sesuai
         }
     },
     mounted() {
