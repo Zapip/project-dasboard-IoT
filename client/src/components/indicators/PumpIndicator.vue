@@ -29,7 +29,7 @@ export default {
     data() {
         return {
             pumpStatus: 'off', // Status Awal
-            apiUrl: 'https://670a77ddac6860a6c2c99956.mockapi.io/pump-indicator-status/pumpstatus', // Ganti dengan API yang sesuai
+            apiUrl: 'https://67448473b4e2e04abea288a6.mockapi.io/pump-indicator-status/pumpstatus', // Ganti dengan API yang sesuai
         }
     },
     mounted() {

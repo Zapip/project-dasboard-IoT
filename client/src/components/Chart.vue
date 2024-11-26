@@ -1,11 +1,11 @@
 <template>
     <article class="h-fit w-full flex flex-col">
         <div class="w-full h-fit flex items-center">
-            <p class="h-fit transform rotate-180 text-xs" style="writing-mode: vertical-rl;">Level
-                (Centimeter)</p>
+            <p class="h-fit transform rotate-180 text-xs" style="writing-mode: vertical-rl;">
+                {{ yaxisCaption }}</p>
             <div class="flex-1" id="water-level-chart"></div>
         </div>
-        <p class="text-center text-xs text-black">Waktu (Second)</p>
+        <p class="text-center text-xs text-black">{{ xaxisCaption }}</p>
     </article>
 </template>
 
@@ -184,6 +184,12 @@ window.addEventListener('load', () => {
 
 export default {
     name: "Chart",
+    data() {
+        return {
+            xaxisCaption: "Waktu (Second)",
+            yaxisCaption: "Level (Centimeter)"
+        }
+    }
 
 };
 </script>
